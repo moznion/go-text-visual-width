@@ -1,4 +1,4 @@
-package textvidualwidth
+package visualwidth
 
 import (
 	"testing"

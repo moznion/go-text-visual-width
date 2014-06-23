@@ -28,9 +28,19 @@ func TestSeparate(t *testing.T) {
 	RegisterTestingT(t)
 	EastAsian = false
 
-	Expect(Separate("123ｱｲｳあいう", 9)).To(Equal([2]string{"123ｱｲｳあ", "いう"}))
-	Expect(Separate("0", 8)).To(Equal([2]string{"0", ""}))
-	Expect(Separate("", 8)).To(Equal([2]string{"", ""}))
+	var pre, post string
+
+	pre, post = Separate("123ｱｲｳあいう", 9)
+	Expect(pre).To(Equal("123ｱｲｳあ"))
+	Expect(post).To(Equal("いう"))
+
+	pre, post = Separate("0", 8)
+	Expect(pre).To(Equal("0"))
+	Expect(post).To(Equal(""))
+
+	pre, post = Separate("", 8)
+	Expect(pre).To(Equal(""))
+	Expect(post).To(Equal(""))
 }
 
 func TestWidthForAmbiguousCharacter(t *testing.T) {
@@ -63,8 +73,14 @@ func TestSeparateAmbiguousCharacter(t *testing.T) {
 	EastAsian = false
 	stringThatContainsAmbiguous := "‐‐‐"
 
-	Expect(Separate(stringThatContainsAmbiguous, 3)).To(Equal([2]string{"‐‐‐", ""}))
+	var pre, post string
+
+	pre, post = Separate(stringThatContainsAmbiguous, 3)
+	Expect(pre).To(Equal("‐‐‐"))
+	Expect(post).To(Equal(""))
 
 	EastAsian = true
-	Expect(Separate(stringThatContainsAmbiguous, 3)).To(Equal([2]string{"‐", "‐‐"}))
+	pre, post = Separate(stringThatContainsAmbiguous, 3)
+	Expect(pre).To(Equal("‐"))
+	Expect(post).To(Equal("‐‐"))
 }

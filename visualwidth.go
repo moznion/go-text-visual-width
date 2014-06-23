@@ -29,10 +29,11 @@ func Trim(str string, limit int) string {
 	return slice(str, limit)[0]
 }
 
-// Separate returns the array of string that has two elements as `[2]string{pre, post}`.
+// Separate returns the strings that has two elements as `(pre, post)`.
 // This function separates the string by length from the beginning.
-func Separate(str string, lengthFromBeginning int) [2]string {
-	return slice(str, lengthFromBeginning)
+func Separate(str string, lengthFromBeginning int) (string, string) {
+	sliced := slice(str, lengthFromBeginning)
+	return sliced[0], sliced[1]
 }
 
 func slice(str string, lengthFromBeginning int) [2]string {
@@ -45,7 +46,7 @@ func slice(str string, lengthFromBeginning int) [2]string {
 			count += 2
 			if count > lengthFromBeginning {
 				post = str[index:]
-				break;
+				break
 			}
 			pre += string(char)
 		} else {

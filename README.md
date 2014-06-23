@@ -45,7 +45,7 @@ Returns the string that is trimmed by specified limit length.
 
 - `func Separate(str string, lengthFromBeginning int) [2]string`
 
-Returns the array of string that has two elements as `[2]string{pre, post}`.
+Separate returns the strings that has two elements as `(pre, post)`.
 This function separates the string by length from the beginning.
 
 ## See Also

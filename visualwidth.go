@@ -26,25 +26,36 @@ func Width(str string) int {
 
 // Trim returns the string that is trimmed by specified limit length.
 func Trim(str string, limit int) string {
+	return slice(str, limit)[0]
+}
+
+// Separate returns the array of string that has two elements as `[2]string{pre, post}`.
+// This function separates the string by length from the beginning.
+func Separate(str string, lengthFromBeginning int) [2]string {
+	return slice(str, lengthFromBeginning)
+}
+
+func slice(str string, lengthFromBeginning int) [2]string {
 	eastasianwidth.EastAsian = EastAsian
 
 	var count int
-	var ret string
-	for _, char := range str {
+	var pre, post string
+	for index, char := range str {
 		if eastasianwidth.IsFullwidth(char) {
 			count += 2
-			if count > limit {
-				break
+			if count > lengthFromBeginning {
+				post = str[index:]
+				break;
 			}
-			ret += string(char)
+			pre += string(char)
 		} else {
 			count++
-			if count > limit {
-				break
+			if count > lengthFromBeginning {
+				post = str[index:]
 			}
-			ret += string(char)
+			pre += string(char)
 		}
 	}
 
-	return ret
+	return [2]string{pre, post}
 }

@@ -24,6 +24,15 @@ func TestTrim(t *testing.T) {
 	Expect(Trim("", 8)).To(Equal(""))
 }
 
+func TestSeparate(t *testing.T) {
+	RegisterTestingT(t)
+	EastAsian = false
+
+	Expect(Separate("123ｱｲｳあいう", 9)).To(Equal([2]string{"123ｱｲｳあ", "いう"}))
+	Expect(Separate("0", 8)).To(Equal([2]string{"0", ""}))
+	Expect(Separate("", 8)).To(Equal([2]string{"", ""}))
+}
+
 func TestWidthForAmbiguousCharacter(t *testing.T) {
 	RegisterTestingT(t)
 	EastAsian = false
@@ -46,4 +55,16 @@ func TestTrimForAmbiguousCharacter(t *testing.T) {
 
 	EastAsian = true
 	Expect(Trim(stringThatContainsAmbiguous, 3)).To(Equal("‐"))
+}
+
+func TestSeparateAmbiguousCharacter(t *testing.T) {
+	RegisterTestingT(t)
+
+	EastAsian = false
+	stringThatContainsAmbiguous := "‐‐‐"
+
+	Expect(Separate(stringThatContainsAmbiguous, 3)).To(Equal([2]string{"‐‐‐", ""}))
+
+	EastAsian = true
+	Expect(Separate(stringThatContainsAmbiguous, 3)).To(Equal([2]string{"‐", "‐‐"}))
 }

@@ -53,6 +53,7 @@ func slice(str string, lengthFromBeginning int) [2]string {
 			count++
 			if count > lengthFromBeginning {
 				post = str[index:]
+				break
 			}
 			pre += string(char)
 		}

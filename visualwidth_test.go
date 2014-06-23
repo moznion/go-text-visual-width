@@ -34,6 +34,10 @@ func TestSeparate(t *testing.T) {
 	Expect(pre).To(Equal("123ｱｲｳあ"))
 	Expect(post).To(Equal("いう"))
 
+	pre, post = Separate("abcdefg", 2)
+	Expect(pre).To(Equal("ab"))
+	Expect(post).To(Equal("cdefg"))
+
 	pre, post = Separate("0", 8)
 	Expect(pre).To(Equal("0"))
 	Expect(post).To(Equal(""))
